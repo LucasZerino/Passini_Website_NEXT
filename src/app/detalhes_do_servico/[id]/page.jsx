@@ -13,7 +13,7 @@ const services = [
     title: 'Grua SL',
     description: 'As Gruas SL (Self-Erecting) da Passini são projetadas para oferecer eficiência e mobilidade, tornando-se a solução ideal para canteiros de obras que demandam rapidez e flexibilidade. Com um sistema de auto elevação que facilita a montagem e desmontagem, essas gruas são perfeitas para projetos de diversos tamanhos, otimizando processos e garantindo a segurança no local de trabalho.',
     detalhada: 'As Gruas SL (Self-Erecting) da Passini são uma escolha inteligente para seu projeto de construção. Essas mini gruas são ideais para construção civil, especialmente em obras que demandam gruas automontantes. A Grua SL é uma solução eficiente e segura, perfeita para quem busca gruas pequenas e versáteis. Com facilidade de montagem e desmontagem, essa grua para construção civil economiza tempo e recursos, oferecendo mobilidade e eficiência no canteiro de obras.',
-    image: '/images/servicos/grua.png',
+    image: '/images/Hero/vd3.gif',
     reasons: [
       'Montagem Rápida: Sistema de auto elevação que permite montagem e desmontagem rápidas, economizando tempo e recursos.',
       'Mobilidade: Fácil realocação dentro do canteiro de obras, adaptando-se rapidamente às necessidades do projeto.',
@@ -39,7 +39,7 @@ const services = [
     id: 'elevadores',
     title: 'Elevadores de Cremalheira',
     description: 'Os Elevadores de Cremalheira da Passini são essenciais para projetos de construção que exigem movimentação vertical eficiente e segura de materiais e trabalhadores. Estes elevadores são projetados para suportar cargas pesadas e operar em diferentes alturas, tornando-se uma solução versátil para diversos tipos de obras. Com tecnologia avançada e robustez, os elevadores de cremalheira garantem que sua obra se mantenha produtiva e dentro do cronograma.',
-    image: '/images/servicos/elevador.png',
+    image: '/images/servicos/elevador.gif',
     reasons: [
       'Capacidade de Carga: Projetados para levantar e transportar materiais pesados e volumosos.',
       'Segurança: Equipamentos com sistemas de segurança avançados para proteger trabalhadores e materiais.',
@@ -185,7 +185,7 @@ export default function ServiceDetails({ params }) {
               <div className="service-category mb-40">
                 <h4 className="tx-dark mb-15">Palavras Chaves</h4>
                 <ul className="style-none keyword-list">
-                  <li className="current-page"><a href="#">rua</a></li>
+                  <li className="current-page"><a href="#">grua</a></li>
                   <li><a href="#">mini grua</a></li>
                   <li><a href="#">grua construção civil</a></li>
                   <li><a href="#">gruas automontantes</a></li>
