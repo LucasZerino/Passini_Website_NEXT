@@ -33,11 +33,6 @@ const GridWithSidebar = () => {
               </div>
             </div>
           </div>
-          <img
-            src="/images/shape/shape_172.svg"
-            alt="shape"
-            className="lazy-img shapes shape-two"
-          />
         </div>
 
         <div className="blog-section-five mt-70 lg-mt-30">

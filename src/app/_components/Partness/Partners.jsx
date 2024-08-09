@@ -5,10 +5,6 @@ import Slider from "react-slick";
 
 const partners = [
   {
-    id: 1,
-    logo: "/images/clientes/SETIN.png",
-  },
-  {
     id: 2,
     logo: "/images/clientes/MPD.png",
   },

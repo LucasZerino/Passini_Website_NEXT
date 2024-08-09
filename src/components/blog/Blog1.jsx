@@ -1,16 +1,35 @@
-import Link from "next/link";
-import blogData from "@/data/blog";
-import Image from "next/image";
+'use client';
+
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 
 const Blog = () => {
+  const [blogData, setBlogData] = useState([]);
+
+  useEffect(() => {
+    const fetchBlogData = async () => {
+      try {
+        const res = await fetch('/content/blog.json');
+        if (!res.ok) throw new Error('Failed to fetch blog data');
+        const data = await res.json();
+        setBlogData(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchBlogData();
+  }, []);
+
   return (
     <>
       {blogData.slice(6, 11).map((blog) => (
         <article
-          className={`blog-meta-three mb-80 lg-mb-40 ${blog.className}`}
+          className={`blog-meta-three mb-80 lg-mb-40 ${blog.className || ''}`}
           key={blog.id}
           data-aos="fade-up"
-          data-aos-delay={blog.delay}
+          data-aos-delay={blog.delay || 0}
         >
           {blog.imageSrc && (
             <figure className="post-img m0">
@@ -19,7 +38,7 @@ const Blog = () => {
                   width={800}
                   height={450}
                   src={blog.imageSrc}
-                  alt="blog"
+                  alt={blog.title}
                   className="lazy-img w-100 tran4s"
                 />
               </Link>

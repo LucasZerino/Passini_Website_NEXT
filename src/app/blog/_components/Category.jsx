@@ -1,23 +1,42 @@
-import { useState } from 'react';
-import blogPosts from '@/data/blog';
+'use client';
+
+import { useEffect, useState } from 'react';
 
 const Category = ({ setActiveCategory }) => {
+  const [categories, setCategories] = useState([]);
   const [localActiveCategory, setLocalActiveCategory] = useState(null);
 
-  const categoriesMap = blogPosts.reduce((acc, current) => {
-    if (current.categoria) {
-      if (!acc[current.categoria]) {
-        acc[current.categoria] = 0;
-      }
-      acc[current.categoria]++;
-    }
-    return acc;
-  }, {});
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch('/content/blog.json');
+        if (!res.ok) throw new Error('Failed to fetch blog data');
+        const blogPosts = await res.json();
 
-  const categories = Object.keys(categoriesMap).map(category => ({
-    name: category,
-    count: categoriesMap[category]
-  }));
+        // Mapeia as categorias
+        const categoriesMap = blogPosts.reduce((acc, current) => {
+          if (current.categoria) {
+            if (!acc[current.categoria]) {
+              acc[current.categoria] = 0;
+            }
+            acc[current.categoria]++;
+          }
+          return acc;
+        }, {});
+
+        const categoriesArray = Object.keys(categoriesMap).map(category => ({
+          name: category,
+          count: categoriesMap[category]
+        }));
+
+        setCategories(categoriesArray);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const filterByCategory = (category) => {
     if (localActiveCategory === category) {

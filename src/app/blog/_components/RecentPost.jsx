@@ -1,54 +1,60 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import blogData from '@/data/blog';
 import Image from 'next/image';
 
 const RecentPost = () => {
-  // Ordena os posts por ID em ordem inversa
-  const sortedPosts = blogData.slice().sort((a, b) => b.id - a.id);
+  const [posts, setPosts] = useState([]);
 
-  // Extraia as categorias únicas
-  const categoriesSet = new Set();
-  sortedPosts.forEach(post => {
-    if (post.categoria) {
-      categoriesSet.add(post.categoria);
-    }
-  });
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const res = await fetch('/content/blog.json');
+        if (!res.ok) throw new Error('Failed to fetch blog data');
+        const blogData = await res.json();
+        
+        // Ordena os posts por ID em ordem inversa
+        const sortedPosts = blogData.slice().sort((a, b) => b.id - a.id);
+        setPosts(sortedPosts);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-  // Converta o conjunto para um array ordenado alfabeticamente
-  const categories = Array.from(categoriesSet).sort();
+    fetchPosts();
+  }, []);
 
   return (
     <>
-      {sortedPosts.slice(0, 3).map(post => (
+      {posts.slice(0, 3).map(post => (
         <div
-          className="news-block d-flex align-items-center pt-20 pb-20 border-top border-bottom"
+          className="news-block d-flex align-items-center pt-4 pb-4 border-t border-b"
           key={post.id}
         >
           <div>
             <Image
-              width={80}
-              height={90}
+              width={120}
+              height={120}
               src={post.imageSrc}
               alt={post.title}
               className="lazy-img"
             />
           </div>
           <div className="post ps-4">
-            <h4 className="mb-5">
-              <Link href={`/blog/${post.id}`} className="title tran3s">
+            <h4 className="mb-3">
+              <Link href={`/blog/${post.id}`} className="title text-lg font-semibold hover:text-blue-500 transition-colors">
                 {post.title}
               </Link>
             </h4>
-            <div className="date">{post.date}</div>
+            <div className="date text-gray-500 mb-2">{post.date}</div>
             {post.categoria && (
-              <div className="categories">
-                {categories.map((category, index) => (
-                  <span key={index} className="category">
-                    <Link href={`/category/${encodeURIComponent(category)}`}>
-                      {category}
-                    </Link>
-                  </span>
-                ))}
+              <div className="categories flex flex-wrap gap-2 mt-2">
+                <span
+                  className="category bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm hover:bg-gray-300 transition-colors"
+                >
+                  {post.categoria}
+                </span>
               </div>
             )}
           </div>

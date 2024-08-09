@@ -1,7 +1,27 @@
-import Link from "next/link";
-import posts from "@/data/blog";
+'use client';
+
+import Link from 'next/link';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 const Blog3 = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch('/content/blog.json');
+        if (!response.ok) throw new Error('Failed to fetch posts');
+        const data = await response.json();
+        setPosts(data);
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
   return (
     <>
       {posts.slice(19, 25).map((post) => (
@@ -9,7 +29,7 @@ const Blog3 = () => {
           className="col-md-6 d-flex"
           key={post.id}
           data-aos="fade-up"
-          data-aos-delay={post.delay}
+          data-aos-delay={post.delay || 0}
         >
           <article
             className="blog-meta-five d-flex flex-column position-relative tran3s mb-60 lg-mb-50"
@@ -31,7 +51,7 @@ const Blog3 = () => {
             </div>
             <div className="blog-footer d-flex align-items-center justify-content-between mt-auto">
               <div className="blog-date fw-500 tx-dark">
-                {post.tag === "Design" ? "Featured -" : "Created on -"}
+                {post.tag === 'Design' ? 'Featured -' : 'Created on -'}
                 <a href="#" className="fw-normal tran3s">
                   {post.date}
                 </a>

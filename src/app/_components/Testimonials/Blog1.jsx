@@ -1,18 +1,38 @@
-import Link from "next/link";
-import blogData from "@/data/blog";
+'use client'; // Adicionado para garantir que o componente seja tratado como cliente
+
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 const Blog = () => {
+  const [blogData, setBlogData] = useState([]);
+
+  // Função para buscar os dados do JSON
+  const fetchBlogData = async () => {
+    try {
+      const response = await fetch('/content/blog.json');
+      const data = await response.json();
+      setBlogData(data);
+    } catch (error) {
+      console.error('Erro ao buscar dados do blog:', error);
+    }
+  };
+
+  // Buscar dados quando o componente for montado
+  useEffect(() => {
+    fetchBlogData();
+  }, []);
+
   // Ordenar blogData por ID em ordem decrescente
   const sortedBlogData = blogData.sort((a, b) => b.id - a.id);
 
   return (
     <div className="row">
-      {sortedBlogData.slice(0, 2).map((item, index) => (
+      {sortedBlogData.slice(0, 2).map((item) => (
         <div
           className="col-md-6 d-flex"
           data-aos="fade-up"
-          data-aos-delay={(index + 1) * 100}
-          key={index}
+          data-aos-delay={(item.id % 2 + 1) * 100} // Ajustado para garantir delay único
+          key={item.id} // Alterado para `item.id` em vez de `index`
         >
           <article
             className="blog-meta-six d-flex flex-column position-relative zn2 mt-40"

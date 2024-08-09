@@ -40,7 +40,7 @@ const IntroAbout = () => {
               onClick={() => setOpen(true)}
             />
             <p className="tx-dark pt-30 pb-30 md-pb-15" data-aos="fade-up">
-                A Passini atingiu <span className="fw-500">R$ 7.000.000</span> em novos contratos, graças à eficiência e inovação das nossas gruas SL, destacando nossa liderança na construção civil.
+                A Passini atingiu <span className="fw-500">9.000</span> novos contratos, graças à eficiência e inovação das nossas gruas SL, destacando nossa liderança na construção civil.
             </p>
             <h6
               className="fs-20 tx-dark d-inline-block fst-italic position-relative ps-4"

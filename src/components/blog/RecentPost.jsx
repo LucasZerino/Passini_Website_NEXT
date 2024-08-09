@@ -1,11 +1,30 @@
-import Link from "next/link";
-import blogData from "@/data/blog";
-import Image from "next/image";
+'use client';
+
+import Link from 'next/link';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 const RecentPost = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch('/content/blog.json');
+        if (!response.ok) throw new Error('Failed to fetch posts');
+        const data = await response.json();
+        setPosts(data);
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
   return (
     <>
-      {blogData.slice(0, 3).map((post) => (
+      {posts.slice(0, 3).map((post) => (
         <div
           className="news-block d-flex align-items-center pt-20 pb-20 border-top border-bottom"
           key={post.id}

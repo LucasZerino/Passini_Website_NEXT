@@ -12,11 +12,6 @@ const Hero = () => {
                   <i> </i>
                 <span className="position-relative">
                     para Construção Civil
-                  <img
-                    src="/images/shape/shape_161.svg"
-                    alt="shape"
-                    className="lazy-img shapes text-shape"
-                  />
                 </span>
               </h1>
               <p className="text-lg tx-white mb-80 pt-35 text-center lg-pt-20 lg-mb-50">
@@ -40,12 +35,6 @@ const Hero = () => {
         {/* /.search-form-bg */}
       </div>
       {/* /.container */}
-
-      <img
-        src="/images/shape/shape_159.svg"
-        alt="shape"
-        className="lazy-img shapes shape-one"
-      />
     </div>
   );
 };

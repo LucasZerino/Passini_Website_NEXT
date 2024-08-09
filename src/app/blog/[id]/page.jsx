@@ -9,29 +9,34 @@ import Header3 from '@/app/_components/Header/Header';
 import RecentPost from '../_components/RecentPost';
 import BannerPost from '../_components/BannerPost';
 import RootLayout from '@/app/RootLayout';
-import blogsData from '@/data/blog';
 
 const Blog = ({ params }) => {
   const [blog, setBlog] = useState(null);
   const [content, setContent] = useState('');
 
   useEffect(() => {
-    const fetchBlog = async () => {
-      const blogData = blogsData.find(item => item.id == params.id) || blogsData[0];
-      setBlog(blogData);
-
-      // Fetch markdown content
+    const fetchBlogData = async () => {
       try {
-        const res = await fetch(`/content/${blogData.conteudoPath}`);
-        if (!res.ok) throw new Error('Failed to fetch content');
-        const text = await res.text();
+        // Buscar dados do blog
+        const res = await fetch('/content/blog.json');
+        if (!res.ok) throw new Error('Failed to fetch blog data');
+        const blogsData = await res.json();
+
+        // Encontrar o blog específico
+        const blogData = blogsData.find(item => item.id == params.id) || blogsData[0];
+        setBlog(blogData);
+
+        // Buscar conteúdo Markdown
+        const contentRes = await fetch(`/content/${blogData.conteudoPath}`);
+        if (!contentRes.ok) throw new Error('Failed to fetch content');
+        const text = await contentRes.text();
         setContent(text);
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchBlog();
+    fetchBlogData();
   }, [params.id]);
 
   if (!blog) {
